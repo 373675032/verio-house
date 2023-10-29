@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>租房通 - 你的便捷租房专家</title>
+		 
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+		
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+    </head>
+	
+    <body class="yellow-skin">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+			<!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="gray p-0">
+				<div class="container-fluid p-0">
+								
+					<div class="row">
+
+						<div th:replace="common/background-bar::#side-bar(currUri='my-profile')"></div>
+						
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="dashboard-body">
+							
+								<div class="dashboard-wraper" style="min-height: 800px">
+
+									<div class="frm_submit_block">	
+										<h4>我的资料</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="form-row">
+											
+												<div class="form-group col-md-6">
+													<label>姓名</label>
+													<input th:value="${user.name}" id="name" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>所在地</label>
+													<input th:value="${user.location}" id="location" type="email" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>邮箱</label>
+													<input th:value="${user.email}" id="email" type="email" class="form-control">
+												</div>
+												
+												<div class="form-group col-md-6">
+													<label>手机号</label>
+													<input th:value="${user.phone}" id="phone" type="text" class="form-control">
+												</div>
+												
+												<div class="form-group col-md-6">
+													<label>身份证号</label>
+													<input th:value="${user.idcardNum}" id="idcardNum" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>性别</label>
+													<input th:value="${user.sex}" style="background: #dddddd" disabled id="sex" type="email" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>出生年月</label>
+													<input th:value="${user.birth}" id="birth" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>注册时间</label>
+													<input th:value="${#dates.format(user.createTime,'yyyy-MM-dd HH:mm:ss')}" style="background: #dddddd" disabled type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-12">
+													<label>关于</label>
+													<textarea id="about" class="form-control">[[${user.about}]]</textarea>
+												</div>
+
+												<div class="form-group col-md-12">
+													<small>上次修改时间：[[${#dates.format(user.updateTime,'yyyy-MM-dd HH:mm:ss')}]]</small>
+												</div>
+
+												<div class="form-group col-lg-12 col-md-12">
+													<br>
+													<button onclick="updateProfile()" class="btn btn-theme bg-2" type="submit">保存修改</button>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div th:replace="common/background-bar::#footer"></div>
+								<!-- row -->
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+		<script src="common/utils/reg.js"></script>
+		<script src="common/layer/layer.js"></script>
+		<script src="common/custom.js"></script>
+	</body>
+</html>

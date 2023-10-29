@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Drizvato"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>租房通 - 你的便捷租房专家</title>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet">
+
+    <!-- Custom Color Option -->
+    <link href="assets/css/colors.css" rel="stylesheet">
+</head>
+
+<body class="yellow-skin">
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader"></div>
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+    <!-- Start Navigation -->
+    <div th:replace="common/front-bar::#front-header"></div>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+
+    <!-- ============================ User Dashboard ================================== -->
+    <section class="gray p-0">
+        <div class="container-fluid p-0">
+
+            <div class="row">
+
+                <div th:replace="common/background-bar::#side-bar(currUri='my-order')"></div>
+
+                <div class="col-lg-9 col-md-8 col-sm-12">
+                    <div class="dashboard-body">
+
+                        <div class="dashboard-wraper" style="min-height: 800px">
+
+                            <!-- Bookmark Property -->
+
+                            <table class="property-table-wrap responsive-table bkmark">
+                                <tbody>
+                                <tr>
+                                    <th><i class="fa fa-file-text"></i> [[ ${order.title} ]]</th>
+                                    <th></th>
+                                </tr>
+                                <!-- Item #1 -->
+                                </tbody>
+                            </table>
+
+                            <!-- Single Block Wrap -->
+                            <div class="property_block_wrap style-2">
+
+                                <div class="property_block_wrap_header">
+                                    <a data-toggle="collapse" data-parent="#features" href="#clOne"
+                                       aria-expanded="true"><h4 class="property_block_title">租用详情</h4></a>
+                                </div>
+                                <div id="clOne" class="panel-collapse collapse show" aria-expanded="true">
+                                    <div class="block-body">
+                                        <ul class="deatil_features">
+                                            <li><strong>卧室：</strong> [[${room.detail.bedroomCount}]]</li>
+                                            <li><strong>客厅：</strong> [[${room.detail.parlourCount}]]</li>
+                                            <li><strong>卫生间： </strong> [[${room.detail.restroomCount}]]</li>
+                                            <li><strong>浴室：</strong> [[${room.detail.bathroomCount}]]</li>
+                                            <li><strong>车库：</strong> [[${room.detail.garage}]]</li>
+                                            <li><strong>房屋面积：</strong> [[${room.detail.capacity}]]</li>
+                                            <li><strong>所在地区：</strong> [[${room.location}]]</li>
+                                            <li><strong>所在小区：</strong> [[${room.detail.area}]]</li>
+                                            <li><strong>详细地址：</strong> [[${room.detail.address}]]</li>
+                                            <li><strong>房屋类型：</strong> [[${room.detail.type}]]</li>
+                                            <li><strong>建造年限：</strong> [[${room.detail.buildYear}]]</li>
+                                            <li><strong>电梯情况：</strong> [[${room.detail.elevator}]]</li>
+                                            <li><strong>厨房情况：</strong> [[${room.detail.kitchen}]]</li>
+                                            <li><strong>免费Wifi：</strong> [[${room.detail.freeWifi}]]</li>
+                                            <li><strong>窗户情况：</strong> [[${room.detail.window}]]</li>
+                                            <li><strong>地铁情况：</strong> [[${room.detail.metro}]]</li>
+                                            <li><strong>租赁方式：</strong> [[${room.detail.rentType}]]</li>
+                                        </ul>
+                                        <hr>
+                                        <ul class="deatil_features">
+                                            <li><strong>房东姓名：</strong> [[${order.owner.name}]]</li>
+                                            <li><strong>房东性别：</strong> [[${order.owner.sex}]]</li>
+                                            <li><strong>房东出生年月： </strong> [[${order.owner.birth}]]</li>
+                                            <li><strong>房东手机号：</strong> [[${order.owner.phone}]]</li>
+                                            <li><strong>房东邮箱：</strong> [[${order.owner.email}]]</li>
+                                            <li><strong>房东所在地：</strong> [[${order.owner.location}]]</li>
+                                        </ul>
+                                        <hr>
+                                        <ul class="deatil_features">
+                                            <li><strong>房客姓名：</strong> [[${order.user.name}]]</li>
+                                            <li><strong>房客性别：</strong> [[${order.user.sex}]]</li>
+                                            <li><strong>房客出生年月： </strong> [[${order.user.birth}]]</li>
+                                            <li><strong>房客手机号：</strong> [[${order.user.phone}]]</li>
+                                            <li><strong>房客邮箱：</strong> [[${order.user.email}]]</li>
+                                            <li><strong>房客所在地：</strong> [[${order.user.location}]]</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="property_block_wrap style-2">
+
+                                <div class="property_block_wrap_header">
+                                    <a data-toggle="collapse" data-parent="#floor" href="#clFive1" aria-expanded="true"
+                                       class="collapsed"><h4 class="property_block_title">订单信息</h4></a>
+                                </div>
+
+                                <div id="clFive1" class="panel-collapse collapse show" aria-expanded="true">
+                                    <div class="block-body">
+                                        <ul class="deatil_features">
+                                            <li><strong>订单编码：</strong> [[${order.orderNum}]]</li>
+                                            <li><strong>支付流水：</strong> [[${order.payOrder}]]</li>
+                                            <li><strong>内容：</strong> [[${order.content}]]</li>
+                                            <li><strong>租赁时间： </strong>
+                                                [[${#dates.format(order.fromTime,'yyyy年MM月dd日')}]] -
+                                                [[${#dates.format(order.toTime,'yyyy年MM月dd日')}]]
+                                            </li>
+                                            <li><strong>订单金额：</strong> [[${order.payMoney}]] 元</li>
+                                            <li><strong>订单状态：</strong> [[${order.status}]]</li>
+                                            <li><strong>创建时间：</strong>
+                                                [[${#dates.format(order.createTime,'yyyy年MM月dd日 HH:mm:ss')}]]
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="property_block_wrap style-2"
+                                 th:if="${order.status == '未支付' and session.loginUser.role != '房东'}">
+                                <div class="block-body">
+                                    <div>
+                                        <img style="width: 150px;"
+                                             src="https://xuewei-blog.oss-cn-beijing.aliyuncs.com/qrcode_for_gh_60278d1f57de_344.jpg"
+                                             alt="">
+                                        <button th:onclick="pay([[${order.id}]])" class="btn btn-success"
+                                                style="margin-left: 20px">[[${order.payMoney}]] 元 支付成功
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="property_block_wrap style-2"
+                                 th:if="${order.status == '已支付' and session.loginUser.role != '房东'}">
+
+                                <div class="property_block_wrap_header">
+                                    <a data-toggle="collapse" data-parent="#comment" href="#clTen" aria-expanded="true">
+                                        <h4 class="property_block_title">填写评论</h4></a>
+                                </div>
+
+                                <div id="clTen" class="panel-collapse collapse show" aria-expanded="true">
+                                    <div class="block-body">
+                                        <div class="row">
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <input type="number" id="rateCount"
+                                                           oninput="if(value>5)value=5;if(value<0)value=0"
+                                                           class="form-control" placeholder="星星数量（0-5）">
+                                                    <input type="text" id="userId" th:value="${order.ownerId}"
+                                                           style="display: none">
+                                                    <input type="text" id="roomId" th:value="${order.roomId}"
+                                                           style="display: none">
+                                                    <input type="text" id="orderId" th:value="${order.id}"
+                                                           style="display: none">
+                                                    <input type="text" id="orderNum" th:value="${order.orderNum}"
+                                                           style="display: none">
+                                                    <input type="text" id="sendId" th:value="${order.userId}"
+                                                           style="display: none">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea id="content" class="form-control ht-80"
+                                                              placeholder="评论内容"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <button class="btn btn-theme" type="submit" onclick="saveComment()">
+                                                        提交
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="property_block_wrap style-2"
+                                 th:if="${order.status == '已支付' and session.loginUser.role != '房东'}">
+
+                                <div class="property_block_wrap_header">
+                                    <a data-toggle="collapse" data-parent="#comment" href="#clTen1"
+                                       aria-expanded="true"><h4 class="property_block_title">填写反馈</h4></a>
+                                </div>
+
+                                <div id="clTen1" class="panel-collapse collapse show" aria-expanded="true">
+                                    <div class="block-body">
+                                        <div class="row">
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <input type="text" id="title" class="form-control"
+                                                           placeholder="标题">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea id="back_content" class="form-control ht-80"
+                                                              placeholder="反馈内容"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <button class="btn btn-theme" type="submit" onclick="saveBack()">
+                                                        提交
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div th:replace="common/background-bar::#footer"></div>
+                        <!-- row -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ============================ User Dashboard End ================================== -->
+
+    <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/daterangepicker.js"></script>
+<script src="assets/js/custom.js"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+<script src="common/utils/reg.js"></script>
+<script src="common/layer/layer.js"></script>
+<script src="common/custom.js"></script>
+</body>
+</html>

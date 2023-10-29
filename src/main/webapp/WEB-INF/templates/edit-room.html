@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>租房通 - 你的便捷租房专家</title>
+		 
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+		
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+    </head>
+	
+    <body class="yellow-skin">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+			<!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="gray p-0">
+				<div class="container-fluid p-0">
+								
+					<div class="row">
+
+						<div th:replace="common/background-bar::#side-bar(currUri='new-room')"></div>
+						
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="dashboard-body">
+							
+								<div class="dashboard-wraper" style="min-height: 800px">
+
+									<div class="frm_submit_block">	
+										<h4>基本信息</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="form-row">
+											
+												<div class="form-group col-md-6">
+													<label>标题 <strong style="color: red">*</strong></label>
+													<input th:value="${room.title}" value="体院罗浮广场红牌楼望子成龙成都A区" id="title" type="text" class="form-control">
+													<input style="display: none" th:value="${session.loginUser.id}" id="ownerId" type="text" class="form-control">
+													<input style="display: none" th:value="${room.id}" id="roomId" type="text" class="form-control">
+													<input style="display: none" th:value="${detail.id}" id="detailId" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>副标题 <strong style="color: red">*</strong></label>
+													<input th:value="${room.subTitle}" value="距离地铁5号线高升桥站864米" id="subTitle" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>月租价格 <strong style="color: red">*</strong></label>
+													<input th:value="${room.monthPrice}" value="600" id="monthPrice" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>所在地 <strong style="color: red">*</strong></label>
+													<input th:value="${room.location}" value="武侯 高升桥" id="location" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>描述</label>
+													<textarea id="info" class="form-control">[[${room.info}]]</textarea>
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>内容</label>
+													<textarea id="content" class="form-control">[[${room.content}]]</textarea>
+												</div>
+
+												<div class="col-md-12">
+													<label>封面（一张） <strong style="color: red">*</strong></label>
+													<div>
+														<input style="display: none" onchange="uploadImg()" id="img-file" type="file" class="form-control">
+														<input th:value="${room.img}" style="display: none" id="img" type="text" class="form-control">
+														<div style="margin: 5px" class="float-left sides_list_property_thumb">
+															<a href="javascript:$('#img-file').click()"><img id="img-preview" th:src="${room.img}" class="img-fluid" alt=""></a>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-md-12">
+													<label>照片（多张） <strong style="color: red">*</strong></label>
+													<div id="images-preview">
+														<input style="display: none" onchange="uploadImages()" id="images-file" type="file" class="form-control">
+														<input th:value="${room.images}" style="display: none" id="images" type="text" class="form-control">
+														<div style="margin: 5px" class="float-left sides_list_property_thumb">
+															<a href="javascript:$('#images-file').click()"><img src="https://su-share.oss-cn-beijing.aliyuncs.com/1/1ba23d323c34495f95a03220e375d9da.png" class="img-fluid" alt=""></a>
+														</div>
+														<div th:each="i: ${images}" style="margin: 5px" class="float-left sides_list_property_thumb">
+															<a href="javascript:$('#images-file').click()"><img th:src="${i}" class="img-fluid" alt=""></a>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="frm_submit_block">
+										<h4>详细信息</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="form-row">
+
+												<div class="form-group col-md-4">
+													<label>卧室数量 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.bedroomCount}" value="3" id="bedroomCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>客厅数量 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.parlourCount}" value="1" id="parlourCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>卫生间数量 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.restroomCount}" value="2" id="restroomCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>浴室数量 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.bathroomCount}" value="2" id="bathroomCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>车库数量 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.garage}" value="0" id="garage" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>房屋面积 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.capacity}" value="30平" id="capacity" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>小区 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.area}" value="七道堰街33号院" id="area" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>详细地址 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.address}" value="七道堰街33号院" id="address" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>房屋类型 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.type}" value="住宅" id="type" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>建造年限 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.buildYear}" value="2009" id="buildYear" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>电梯情况</label>
+													<input th:value="${detail.elevator}" value="有" id="elevator" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>厨房情况</label>
+													<input th:value="${detail.kitchen}" value="有" id="kitchen" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>免费Wifi</label>
+													<input th:value="${detail.freeWifi}" value="无" id="freeWifi" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>窗户情况</label>
+													<input th:value="${detail.window}" value="有" id="window" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>地铁情况</label>
+													<input th:value="${detail.metro}" value="有" id="metro" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>租赁方式 <strong style="color: red">*</strong></label>
+													<input th:value="${detail.rentType}" value="单间" id="rentType" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-lg-12 col-md-12">
+													<br>
+													<button onclick="editRoom()" class="btn btn-theme bg-2">保存提交</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div th:replace="common/background-bar::#footer"></div>
+								<!-- row -->
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+		<script src="common/utils/reg.js"></script>
+		<script src="common/layer/layer.js"></script>
+		<script src="common/custom.js"></script>
+	</body>
+</html>

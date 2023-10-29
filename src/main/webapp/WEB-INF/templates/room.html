@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+        <title>租房通 - 你的便捷租房专家</title>
+		 
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+		
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+		
+    </head>
+	
+    <body class="yellow-skin">
+	
+		 <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+
+			<!-- ============================ Property Detail Start ================================== -->
+			<section class="gray-dark">
+				<div class="container">
+					<div class="row">
+						
+						<!-- property main detail -->
+						<div class="col-lg-8 col-md-12 col-sm-12">
+
+
+							<!-- Single Block Wrap -->
+							<div class="property_block_wrap style-2">
+
+								<div class="property_block_wrap_header">
+									<a data-toggle="collapse" data-parent="#amen" href="#clThree" aria-expanded="true"><h4 class="property_block_title" th:text="${room.title}"></h4></a>
+								</div>
+
+								<div id="clThree" class="panel-collapse collapse show" aria-expanded="true">
+									<div class="block-body">
+										<p th:text="${room.subTitle}"></p>
+										<p>[[${room.lookCount}]] 次浏览</p>
+										<p class="float-right">更新于： [[${#dates.format(room.updateTime,'yyyy-MM-dd HH:mm:ss')}]]</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Single Block Wrap -->
+							<div class="property_block_wrap style-2">
+								
+								<div class="property_block_wrap_header">
+									<a data-toggle="collapse" data-parent="#features" href="#clOne" aria-expanded="true"><h4 class="property_block_title">房屋详情</h4></a>
+								</div>
+								<div id="clOne" class="panel-collapse collapse show" aria-expanded="true">
+									<div class="block-body">
+										<ul class="deatil_features">
+											<li><strong>卧室：</strong>    [[${room.detail.bedroomCount}]]   </li>
+											<li><strong>客厅：</strong>    [[${room.detail.parlourCount}]]   </li>
+											<li><strong>卫生间： </strong>   [[${room.detail.restroomCount}]]   </li>
+											<li><strong>浴室：</strong>    [[${room.detail.bathroomCount}]]   </li>
+											<li><strong>车库：</strong>    [[${room.detail.garage}]]   </li>
+											<li><strong>房屋面积：</strong>    [[${room.detail.capacity}]]   </li>
+											<li><strong>所在地区：</strong>      [[${room.location}]]    </li>
+											<li><strong>所在小区：</strong>      [[${room.detail.area}]]    </li>
+											<li><strong>详细地址：</strong>    [[${room.detail.address}]]   </li>
+											<li><strong>房屋类型：</strong>    [[${room.detail.type}]]   </li>
+											<li><strong>建造年限：</strong>    [[${room.detail.buildYear}]]   </li>
+											<li><strong>电梯情况：</strong>    [[${room.detail.elevator}]]   </li>
+											<li><strong>厨房情况：</strong>    [[${room.detail.kitchen}]]   </li>
+											<li><strong>免费Wifi：</strong>  [[${room.detail.freeWifi}]]    </li>
+											<li><strong>窗户情况：</strong>    [[${room.detail.window}]]   </li>
+											<li><strong>地铁情况：</strong>    [[${room.detail.metro}]]   </li>
+											<li><strong>租赁方式：</strong>    [[${room.detail.rentType}]]   </li>
+
+										</ul>
+									</div>
+								</div>
+								
+							</div>
+
+							<!-- Single Block Wrap -->
+							<div class="property_block_wrap style-2">
+
+								<div class="property_block_wrap_header">
+									<a data-toggle="collapse" data-parent="#dsrp" href="#clTwo1" aria-expanded="true"><h4 class="property_block_title">照片</h4></a>
+								</div>
+								<div id="clTwo1" class="panel-collapse collapse show" aria-expanded="true">
+									<div class="block-body">
+										<ul class="list-gallery-inline">
+											<li th:each="i:${images}">
+												<a th:href="${i}" class="mfp-gallery"><img th:src="${i}" class="img-fluid mx-auto" alt="" /></a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<!-- Single Block Wrap -->
+							<div class="property_block_wrap style-2">
+
+								<div class="property_block_wrap_header">
+									<a data-toggle="collapse" data-parent="#dsrp" href="#clTwo" aria-expanded="true"><h4 class="property_block_title">描述内容</h4></a>
+								</div>
+								<div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
+									<div class="block-body">
+										<p th:text="${room.info}"></p>
+										<p th:text="${room.content}"></p>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Single Block Wrap -->
+							<div class="property_block_wrap style-2">
+
+								<div class="property_block_wrap_header">
+									<a data-toggle="collapse" data-parent="#floor" href="#clFive" aria-expanded="true" class="collapsed"><h4 class="property_block_title">房东信息</h4></a>
+								</div>
+
+								<div id="clFive" class="panel-collapse collapse show" aria-expanded="true">
+									<div class="block-body">
+										<ul class="deatil_features">
+											<li><strong>姓名：</strong>    [[${room.user.name}]]   </li>
+											<li><strong>性别：</strong>    [[${room.user.sex}]]   </li>
+											<li><strong>出生年月： </strong>   [[${room.user.birth}]]   </li>
+											<li><strong>手机号：</strong>    [[${room.user.phone}]]   </li>
+											<li><strong>邮箱：</strong>    [[${room.user.email}]]   </li>
+											<li><strong>所在地：</strong>    [[${room.user.location}]]   </li>
+											<li><strong>注册时间：</strong>      [[${#dates.format(room.user.createTime,'yyyy-MM-dd HH:mm:ss')}]]    </li>
+										</ul>
+										<p th:text="${room.user.about}"></p>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- Single Reviews Block -->
+							<div class="property_block_wrap style-2">
+								
+								<div class="property_block_wrap_header">
+									<a data-toggle="collapse" data-parent="#rev" href="#clEight" aria-expanded="true"><h4 class="property_block_title">房客评价</h4></a>
+								</div>
+								
+								<div id="clEight" class="panel-collapse collapse show" aria-expanded="true">
+									<div class="block-body">
+										<div class="author-review">
+											<div class="comment-list">
+												<ul>
+													<li th:each="comment,state: ${comments}" class="article_comments_wrap">
+														<article>
+															<div class="comment-details">
+																<div class="comment-meta">
+																	<div class="comment-left-meta">
+																		<h4 class="author-name" th:text="${comment.user.name}"></h4>
+																		<div class="comment-date">[[${#dates.format(comment.createTime,'yyyy年MM月dd日 HH:mm')}]]</div>
+																	</div>
+																	<div class="neary_section_last">
+																		<div class="nearby_place_rate">
+																			<i th:if="${comment.rateCount != 0}" th:each="i:${#numbers.sequence(1, comment.rateCount)}" class="fa fa-star filled"></i><i th:if="${comment.rateCount != 5}" th:each="i:${#numbers.sequence(0, (4 - comment.rateCount))}" class="fa fa-star"></i>
+																		</div>
+																		<small class="reviews-count" th:text="${'（#' + (state.index + 1) + ' 楼）'}"></small>
+																	</div>
+																</div>
+																<div class="comment-text">
+																	<p th:text="${comment.content}"></p>
+																</div>
+															</div>
+														</article>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+
+						</div>
+						
+						<!-- property Sidebar -->
+						<div class="col-lg-4 col-md-12 col-sm-12">
+							<div class="property-sidebar">
+								
+								<!-- Share & Like Button -->
+								<div class="like_share_wrap b-0" th:if="${session.loginUser != null}">
+									<ul class="like_share_list">
+										<li><a href="javascript:share()" class="btn btn-likes" data-toggle="tooltip" data-original-title="分享"><i class="fas fa-share"></i>分享</a></li>
+										<li th:if="${room.favorId == null}"><a href="javascript:void (0)" th:onclick="like([[${room.id}]], [[${session.loginUser.id}]])" class="btn btn-likes" data-toggle="tooltip" data-original-title="收藏"><i class="fas fa-heart"></i>收藏</a></li>
+										<li th:if="${room.favorId != null}"><a href="javascript:void (0)" th:onclick="unLike([[${room.favorId}]])" class="btn btn-likes" data-toggle="tooltip" data-original-title="取消收藏"><i class="fas fa-heart-broken"></i>取消收藏</a></li>
+									</ul>
+								</div>
+								
+								<div class="agent-_blocks_wrap b-0">
+									<div class="side-booking-header">
+										<h3 class="price">[[${room.monthPrice}]]<sub>/ 月</sub></h3>
+									</div>
+									<div class="side-booking-body">
+										<div class="row">
+
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+												<div class="form-group">
+													<div class="guests">
+													  <label>月数</label>
+													  <div class="guests-box">
+														  <button class="counter-btn" type="button" id="cnt-down"><i class="ti-minus"></i></button>
+														  <input type="text" id="guestNo" name="guests" value="1"/>
+														  <button class="counter-btn" type="button" id="cnt-up"><i class="ti-plus"></i></button>
+													  </div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+												<div class="form-group">
+													<div class="guests">
+													  <label>人数</label>
+													  <div class="guests-box">
+														  <button class="counter-btn" type="button" id="kcnt-down"><i class="ti-minus"></i></button>
+														  <input type="text" id="kidsNo" name="kids" value="1"/>
+														  <input type="text" id="roomId" style="display: none" th:value="${room.id}"/>
+														  <button class="counter-btn" type="button" id="kcnt-up"><i class="ti-plus"></i></button>
+													  </div>
+													</div>
+												</div>
+											</div>
+
+											<div class="side-booking-foot">
+												<span class="sb-header-left">总价</span>
+												<h3 class="price theme-cl" th:text="${room.monthPrice}"></h3>
+											</div>
+											
+											<div th:if="${session.loginUser != null && session.loginUser.role != '房东' && room.detail.status == '空闲'}" class="col-lg-12 col-md-12 col-sm-12">
+												<div class="stbooking-footer mt-1">
+													<div class="form-group mb-0 pb-0">
+														<a href="javascript: saveOrder()" class="btn btn-md full-width btn-theme bg-2">提交订单</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Featured Property -->
+								<div class="sidebar-widgets">
+									
+									<h4>每日推荐</h4>
+									
+									<div class="sidebar_featured_property">
+										
+										<!-- List Sibar Property -->
+										<div class="sides_list_property midium b-0" th:each="r: ${rooms}">
+											<div class="sides_list_property_thumb">
+												<img th:src="${r.img}" class="img-fluid" alt="">
+											</div>
+											<div class="sides_list_property_detail">
+												<h4><a th:href="@{room(id=${r.id})}" th:text="${r.title}"></a></h4>
+												<span><i class="ti-location-pin"></i>[[${r.location}]]</span>
+												<div class="lists_property_types mt-1">
+													<div class="property_types_vlix sale">空闲</div>
+												</div>
+												<div class="lists_property_price">
+													<div class="lists_property_price_value first">
+														<h4>[[${r.monthPrice}]]</h4>
+													</div>
+													<div class="lists_property_added">
+														<small>[[${#dates.format(r.updateTime,'yyyy-MM-dd HH:mm:ss')}]]</small>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									
+								</div>
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ Property Detail End ================================== -->
+
+			<div th:replace="common/front-bar::#footer"></div>
+			<div th:replace="common/front-bar::#login"></div>
+			<div th:replace="common/front-bar::#signup"></div>
+			<!-- ============================ Footer End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+			
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		
+		<!-- Date Booking Script -->
+		<script src="assets/js/moment.min.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		
+		<!-- Map -->
+		<script src="http://www.google.cn/maps/api/js?key="></script>
+		<script src="assets/js/map.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+
+		 <script src="common/utils/reg.js"></script>
+		 <script src="common/layer/layer.js"></script>
+		 <script src="common/custom.js"></script>
+	</body>
+</html>

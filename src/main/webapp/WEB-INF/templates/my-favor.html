@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>租房通 - 你的便捷租房专家</title>
+
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+		<link rel="stylesheet" href="common/datatable/dataTables.bootstrap4.min.css"/>
+    </head>
+	
+    <body class="yellow-skin">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+			<!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="gray p-0">
+				<div class="container-fluid p-0">
+								
+					<div class="row">
+
+						<div th:replace="common/background-bar::#side-bar(currUri='my-favor')"></div>
+						
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="dashboard-body">
+							
+								<div class="dashboard-wraper" style="min-height: 800px">
+
+									<div class="frm_submit_block">	
+										<h4>我的收藏</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="form-row">
+												<div class="form-group col-md-12">
+													<table id="example1" class="table table-bordered table-hover display" style="text-align: center">
+														<thead>
+														<tr>
+															<th>ID</th>
+															<th>标题</th>
+															<th>月租</th>
+															<th>卧室</th>
+															<th>客厅</th>
+															<th>地址</th>
+															<th>房主</th>
+															<th>联系电话</th>
+															<th>操作</th>
+														</tr>
+														</thead>
+														<tbody style="font-size: 13px">
+														<tr th:each="room:${rooms}">
+															<td><span th:text="${room.id}"></span></td>
+															<td><span th:text="${room.title}"></span></td>
+															<td><span th:text="${room.monthPrice}"></span></td>
+															<td><span th:text="${room.detail.bedroomCount}"></span></td>
+															<td><span th:text="${room.detail.parlourCount}"></span></td>
+															<td><span th:text="${room.detail.address}"></span></td>
+															<td><span th:text="${room.user.name}"></span></td>
+															<td><span th:text="${room.user.phone}"></span></td>
+
+															<td>
+																<button th:onclick="unLike([[${room.favorId}]])">删除</button>
+															</td>
+														</tr>
+														</tbody>
+														<thead>
+														</thead>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div th:replace="common/background-bar::#footer"></div>
+								<!-- row -->
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+		<script src="common/datatable/jquery.dataTables.min.js"></script>
+		<script src="common/datatable/dataTables.bootstrap4.min.js"></script>
+		<script src="common/utils/reg.js"></script>
+		<script src="common/layer/layer.js"></script>
+		<script src="common/custom.js"></script>
+		<script>
+			// START CODE FOR BASIC DATA TABLE
+			$(document).ready(function() {
+				$('#example1').DataTable({
+					language: {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "输入任意内容搜索：",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "<",
+							"sNext": ">",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					},
+					"aoColumnDefs": [ { "bSortable": false, "aTargets": [ ]}],
+				});
+			});
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Start Navigation -->
+<div id="front-header" class="header header-light dark-text">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="index">
+<!--                    <img src="assets/img/logo.png" class="logo" alt=""/>-->
+                    <h3>房屋租赁管理系统</h3>
+                </a>
+                <div class="nav-toggle"></div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
+
+                    <li class="active">
+                        <a href="index">主页<span class="submenu-indicator"></span></a>
+                    </li>
+
+                    <li><a href="search">地区查询</a></li>
+
+                    <li th:if="${ session.loginUser != null}"><a href="my-favor">我的收藏</a></li>
+                    <li th:if="${ session.loginUser != null}"><a th:if="${session.loginUser.role != '房东'}" href="my-order">我的订单</a></li>
+                    <li th:if="${ session.loginUser != null}"><a th:if="${session.loginUser.role == '房东'}" href="orders">订单管理</a></li>
+
+                    <li><a href="javascript:alert('微信公众号：薛伟同学')">联系我们</a></li>
+
+                </ul>
+
+                <ul th:if="${session.loginUser == null}" class="nav-menu nav-menu-social align-to-right dhsbrd">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#login" class="text-blue">
+                            <i class="fas fa-user-circle mr-1"></i><span class="dn-lg">登录</span>
+                        </a>
+                    </li>
+                    <li class="add-listing dark-bg">
+                        <a href="#" data-toggle="modal" data-target="#signup" class="theme-cl">
+                            <i class="fas fa-arrow-alt-circle-right mr-1"></i>注册
+                        </a>
+                    </li>
+                </ul>
+                <ul th:if="${session.loginUser != null}" class="nav-menu nav-menu-social align-to-right dhsbrd">
+                    <li>
+                        <div class="btn-group account-drop">
+                            <button type="button" class="btn btn-order-by-filt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="https://moti-cloud-v2.oss-cn-beijing.aliyuncs.com/%E9%A6%96%E9%A1%B5.png" class="avater-img" alt="" th:text="${'你好，' + session.loginUser.name}">
+                            </button>
+                            <div class="dropdown-menu animated flipInX">
+                                <a href="my-profile"><i class="ti-user"></i>我的资料</a>
+                                <a href="my-favor"><i class="ti-heart"></i>我的收藏</a>
+                                <a th:if="${session.loginUser.role != '房东'}" href="my-order"><i class="ti-bookmark"></i>我的订单</a>
+                                <a th:if="${session.loginUser.role == '房东'}" href="orders"><i class="ti-bookmark"></i>订单管理</a>
+                                <a class="active" href="logout"><i class="ti-arrow-circle-right"></i>退出登录</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- End Navigation -->
+
+
+<!-- Log In Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">登录</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="registermodal">
+            <div class="modal-body">
+                <div class="login-form">
+
+                    <div class="form-group">
+                        <label>邮箱</label>
+                        <div class="input-with-icon">
+                            <input value="zs@qq.com" id="login-email" type="text" class="form-control" placeholder="...">
+                            <i class="ti-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>密码</label>
+                        <div class="input-with-icon">
+                            <input value="12345678" id="login-password" type="password" class="form-control" placeholder="...">
+                            <i class="ti-unlock"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button onclick="login()" class="btn btn-md full-width pop-login bg-2">登录</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">注册</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="sign-up">
+            <div class="modal-body">
+                <div class="login-form">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>姓名 <strong style="color: red">*</strong></label>
+                                <div class="input-with-icon">
+                                    <input value="" id="register-name" type="text" placeholder="..." class="form-control">
+                                    <i class="ti-user"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>性别 <strong style="color: red">*</strong></label>
+                                <div class="input-with-icon">
+                                    <select id="register-sex" class="form-control">
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                    <i class="ti-flickr"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>邮箱 <strong style="color: red">*</strong></label>
+                                <div class="input-with-icon">
+                                    <input value="" id="register-email" type="email" placeholder="..." class="form-control">
+                                    <i class="ti-email"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>手机号 <strong style="color: red">*</strong></label>
+                                <div class="input-with-icon">
+                                    <input value="" id="register-phone" type="text" placeholder="..." class="form-control">
+                                    <i class="icofont-iphone"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>地区</label>
+                                <div class="input-with-icon">
+                                    <input id="register-location" type="text" placeholder="..." class="form-control">
+                                    <i class="ti-location-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>密码 <strong style="color: red">*</strong></label>
+                                <div class="input-with-icon">
+                                    <input value="" id="register-password" type="password" placeholder="..." class="form-control">
+                                    <i class="ti-unlock"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>选择角色 <strong style="color: red">*</strong></label>
+                                <div class="input-with-icon">
+                                    <select id="register-role" class="form-control">
+                                        <option value="租客">租客</option>
+                                        <option value="房东">房东</option>
+                                    </select>
+                                    <i class="ti-id-badge"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button onclick="register()" class="btn btn-md full-width pop-login bg-2">创建账户
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+
+<footer id="footer" class="dark-footer skin-dark-footer style-2">
+
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer_widget">
+                        <div class="footlogo">
+                            <h4>房屋租赁管理系统</h4>
+                        </div>
+                        <p>租房通房产网为您提供全国各地房产信息，在此有大量房产信息供您选择，每天都有几十万条房源信息更新，人工审核真实有效，欢迎您使用租房通房产网。</p><br>
+                        <ul class="footer-bottom-social">
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                            <li><a href="#"><i class="ti-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">地区</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#">北京市</a></li>
+                            <li><a href="#">上海市</a></li>
+                            <li><a href="#">四川 - 成都</a></li>
+                            <li><a href="#">浙江 - 杭州</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">便捷通道</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#">首页</a></li>
+                            <li><a href="#">搜索一下</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">帮助</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#">Conditions</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">关于我们</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#">地址：上海市 XX XX</a></li>
+                            <li><a href="#">邮箱：zufang@f.com</a></li>
+                            <li><a href="#">电话：9877-3333</a></li>
+                            <li><a href="#">邮政编码：00000</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12">
+                    <p class="mb-0">© 2022 Verio. 租房通 - 你的便捷租房专家</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

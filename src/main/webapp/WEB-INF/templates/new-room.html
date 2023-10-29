@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>租房通 - 你的便捷租房专家</title>
+		 
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+		
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+    </head>
+	
+    <body class="yellow-skin">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+			<!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="gray p-0">
+				<div class="container-fluid p-0">
+								
+					<div class="row">
+
+						<div th:replace="common/background-bar::#side-bar(currUri='new-room')"></div>
+						
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="dashboard-body">
+							
+								<div class="dashboard-wraper" style="min-height: 800px">
+
+									<div class="frm_submit_block">	
+										<h4>基本信息</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="form-row">
+											
+												<div class="form-group col-md-6">
+													<label>标题 <strong style="color: red">*</strong></label>
+													<input value="" id="title" type="text" class="form-control">
+													<input style="display: none" th:value="${session.loginUser.id}" id="ownerId" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>副标题 <strong style="color: red">*</strong></label>
+													<input value="" id="subTitle" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>月租价格 <strong style="color: red">*</strong></label>
+													<input value="" id="monthPrice" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>所在地 <strong style="color: red">*</strong></label>
+													<input value="" id="location" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>描述</label>
+													<textarea id="info" class="form-control">-</textarea>
+												</div>
+
+												<div class="form-group col-md-6">
+													<label>内容</label>
+													<textarea id="content" class="form-control">-</textarea>
+												</div>
+
+												<div class="col-md-12">
+													<label>封面（一张） <strong style="color: red">*</strong></label>
+													<div>
+														<input style="display: none" onchange="uploadImg()" id="img-file" type="file" class="form-control">
+														<input style="display: none" id="img" type="text" class="form-control">
+														<div style="margin: 5px" class="float-left sides_list_property_thumb">
+															<a href="javascript:$('#img-file').click()"><img id="img-preview" src="https://su-share.oss-cn-beijing.aliyuncs.com/1/1ba23d323c34495f95a03220e375d9da.png" class="img-fluid" alt=""></a>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-md-12">
+													<label>照片（多张） <strong style="color: red">*</strong></label>
+													<div id="images-preview">
+														<input style="display: none" onchange="uploadImages()" id="images-file" type="file" class="form-control">
+														<input style="display: none" id="images" type="text" class="form-control">
+														<div style="margin: 5px" class="float-left sides_list_property_thumb">
+															<a href="javascript:$('#images-file').click()"><img src="https://su-share.oss-cn-beijing.aliyuncs.com/1/1ba23d323c34495f95a03220e375d9da.png" class="img-fluid" alt=""></a>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="frm_submit_block">
+										<h4>详细信息</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="form-row">
+
+												<div class="form-group col-md-4">
+													<label>卧室数量 <strong style="color: red">*</strong></label>
+													<input value="" id="bedroomCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>客厅数量 <strong style="color: red">*</strong></label>
+													<input value="" id="parlourCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>卫生间数量 <strong style="color: red">*</strong></label>
+													<input value="" id="restroomCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>浴室数量 <strong style="color: red">*</strong></label>
+													<input value="" id="bathroomCount" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>车库数量 <strong style="color: red">*</strong></label>
+													<input value="" id="garage" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>房屋面积 <strong style="color: red">*</strong></label>
+													<input value="" id="capacity" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>小区 <strong style="color: red">*</strong></label>
+													<input value="" id="area" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>详细地址 <strong style="color: red">*</strong></label>
+													<input value="" id="address" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>房屋类型 <strong style="color: red">*</strong></label>
+													<input value="" id="type" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>建造年限 <strong style="color: red">*</strong></label>
+													<input value="" id="buildYear" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>电梯情况</label>
+													<input value="" id="elevator" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>厨房情况</label>
+													<input value="" id="kitchen" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>免费Wifi</label>
+													<input value="" id="freeWifi" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>窗户情况</label>
+													<input value="" id="window" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>地铁情况</label>
+													<input value="" id="metro" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label>租赁方式 <strong style="color: red">*</strong></label>
+													<input value="" id="rentType" type="text" class="form-control">
+												</div>
+
+												<div class="form-group col-lg-12 col-md-12">
+													<br>
+													<button onclick="addRoom()" class="btn btn-theme bg-2">保存提交</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div th:replace="common/background-bar::#footer"></div>
+								<!-- row -->
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+		<script src="common/utils/reg.js"></script>
+		<script src="common/layer/layer.js"></script>
+		<script src="common/custom.js"></script>
+	</body>
+</html>

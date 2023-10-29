@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+
+
+           http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!--配置要扫描的包,除了不需要扫描的Controller包-->
+    <context:component-scan base-package="com.verio">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 加载配数据源配置文件 db.properties -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--配置druid连接池-->
+    <bean id="dataSource_Druid" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="driverClassName" value="${datasource.connection.driver_class}"/>
+        <property name="url" value="${datasource.connection.url}"/>
+        <property name="username" value="${datasource.connection.username}"/>
+        <property name="password" value="${datasource.connection.password}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="20"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+
+        <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+        <property name="filters" value="stat"/>
+    </bean>
+
+    <!-- 整合MyBatis 创建出SqlSessionFactory对象 -->
+    <!--    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+    <!--        <property name="dataSource" ref="dataSource_Druid"/>-->
+    <!--        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>-->
+    <!--        &lt;!&ndash;指定mapper文件的位置&ndash;&gt;-->
+    <!--&lt;!&ndash;        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>&ndash;&gt;-->
+    <!--    </bean>-->
+    <bean id="sqlSessionFactory"
+          class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <!-- 指定数据源 -->
+        <property name="dataSource" ref="dataSource_Druid"></property>
+        <!-- 指定mybatis全局配置文件的位置 -->
+        <property name="configLocation"
+                  value="classpath:mybatis/mybatis-config.xml"></property>
+        <property name="typeAliasesPackage"
+                  value="com.verio"></property>
+        <!-- 指定myabtis配置文件的位置 -->
+        <!-- <property name="mapperLocations" value="classpath:mapper/*.xml"></property> -->
+
+        <!--注册mybatisPlus的全局策略配置 -->
+        <!-- <property name="globalConfiguration" ref="globalConfiguration"></property> -->
+    </bean>
+
+    <!-- 配置扫描器 自动将mybatis接口的实现加入到ioc容器中 -->
+    <!--org.mybatis.spring.mapper.MapperScannerConfigurer -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描所有的dao接口的实现,加入到ioc容器中 -->
+        <property name="basePackage" value="org.vector.mapper"></property>
+        <property name="sqlSessionFactoryBeanName"
+                  value="sqlSessionFactory"/>
+    </bean>
+
+    <!--扫描所有mapper接口的实现,让这些mapper可以自动注入-->
+    <mybatis-spring:scan base-package="com.verio.dao"/>
+
+    <!-- 对mybatis操作数据事务控制，spring使用jdbc的事务控制类 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 数据源dataSource在spring-mybatis.xml中配置了 -->
+        <property name="dataSource" ref="dataSource_Druid"/>
+    </bean>
+
+    <bean id="print" class="com.verio.utils.InfoPrinter"/>
+
+    <!--
+     ==========================================================================
+     郑重说明：本项目免费开源！原创作者为：薛伟同学，严禁私自出售。
+     ==========================================================================
+     B站账号：薛伟同学
+     微信公众号：薛伟同学
+     作者博客：http://xuewei.world
+     ==========================================================================
+     陆陆续续总会收到粉丝的提醒，总会有些人为了赚取利益倒卖我的开源项目。
+     不乏有粉丝朋友出现钱付过去，那边只把代码发给他就跑路的，最后还是根据线索找到我。。
+     希望各位朋友擦亮慧眼，谨防上当受骗！
+     ==========================================================================
+    -->
+</beans>
+

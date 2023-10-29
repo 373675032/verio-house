@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>租房通 - 你的便捷租房专家</title>
+		 
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+		
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+    </head>
+	
+    <body class="yellow-skin">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+			<!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="gray p-0">
+				<div class="container-fluid p-0">
+								
+					<div class="row">
+
+						<div th:replace="common/background-bar::#side-bar(currUri='my-rooms')"></div>
+						
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="dashboard-body" style="min-height: 800px">
+								<!-- row -->
+
+								<div class="dashboard-wraper" style="min-height: 800px">
+
+									<div class="frm_submit_block">
+										<h4>我的房源</h4>
+										<br>
+										<div class="frm_submit_wrap">
+											<div class="row">
+
+												<!-- Single Property -->
+												<div th:each="room: ${rooms}" class="col-lg-4 col-md-6 col-sm-12">
+													<div class="dashboard_property_list">
+														<div class="dashboard_property_list_thumb">
+															<img style="height: 280px;width: 100%" th:src="${room.img}" class="img-fluid" alt="" />
+															<span th:if="${room.detail.status == '空闲'}" class="dashboard_pr_status published" th:text="${room.detail.status}"></span>
+															<span th:if="${room.detail.status == '暂停'}" class="dashboard_pr_status expire" th:text="${room.detail.status}"></span>
+															<span th:if="${room.detail.status == '已租'}" class="dashboard_pr_status" th:text="${room.detail.status}"></span>
+														</div>
+														<div class="dashboard_property_list_content">
+															<h4 th:text="${room.title}"></h4>
+															<span><i class="ti-location-pin"></i> [[${room.detail.address}]]</span>
+														</div>
+														<div class="dashboard_property_list_footer">
+															<a th:href="@{edit-room(id=${room.id})}" data-toggle="tooltip" title="编辑"><i class="ti-pencil"></i></a>
+															<a th:href="@{room(id=${room.id})}" data-toggle="tooltip" th:title="${room.lookCount + '次浏览'}"><i class="ti-eye"></i></a>
+															<a th:if="${room.detail.status != '已租'}" th:onclick="deleteRoom([[${room.id}]], [[${room.detail.id}]])" data-toggle="tooltip" title="删除"><i class="ti-close"></i></a>
+															<a th:if="${room.detail.status == '空闲'}" th:onclick="changeRoomStatus([[${room.detail.id}]], '暂停')" data-toggle="tooltip" title="暂停"><i class="ti-control-pause"></i></a>
+															<a th:if="${room.detail.status == '暂停'}" th:onclick="changeRoomStatus([[${room.detail.id}]], '空闲')" data-toggle="tooltip" title="启动"><i class="ti-control-play"></i></a>
+															<a th:if="${room.detail.status == '已租'}" th:onclick="changeRoomStatus([[${room.detail.id}]], '空闲')" data-toggle="tooltip" title="停租"><i class="ti-power-off"></i></a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div th:replace="common/background-bar::#footer"></div>
+								<!-- row -->
+
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+		<script src="common/utils/reg.js"></script>
+		<script src="common/layer/layer.js"></script>
+		<script src="common/custom.js"></script>
+	</body>
+</html>

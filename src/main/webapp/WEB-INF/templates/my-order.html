@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Drizvato" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>租房通 - 你的便捷租房专家</title>
+		 
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css" rel="stylesheet">
+		
+		<!-- Custom Color Option -->
+		<link href="assets/css/colors.css" rel="stylesheet">
+    </head>
+	
+    <body class="yellow-skin">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+			<!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div th:replace="common/front-bar::#front-header"></div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="gray p-0">
+				<div class="container-fluid p-0">
+								
+					<div class="row">
+
+						<div th:replace="common/background-bar::#side-bar(currUri='my-order')"></div>
+						
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="dashboard-body">
+
+								<div class="dashboard-wraper" style="min-height: 800px">
+
+									<!-- Bookmark Property -->
+
+									<table class="property-table-wrap responsive-table bkmark">
+
+										<tbody>
+										<tr>
+											<th><i class="fa fa-file-text"></i> 我的订单</th>
+											<th></th>
+										</tr>
+
+										<!-- Item #1 -->
+										<tr th:each="order: ${orders}">
+											<td class="dashboard_propert_wrapper">
+												<img th:src="${order.room.img}" alt="">
+												<div class="title">
+													<h4><a th:href="@{room(id=${order.roomId})}">[[${order.title}]] <span class="table-property-price bg-info text-white">[[${order.status}]]</span> </a></h4>
+													<span> 订单编号： [[${order.orderNum}]]</span>
+													<span> [[${order.content}]]</span>
+													<span> 租赁时间：[[${#dates.format(order.fromTime,'yyyy年MM月dd日')}]] - [[${#dates.format(order.toTime,'yyyy年MM月dd日')}]]</span>
+													<span> 房东信息：[[${order.owner.name}]] / [[${order.owner.phone}]] </span>
+													<div>
+														<span class="table-property-price">单价：[[${order.room.monthPrice}]] 元 / 月</span>
+														<span class="table-property-price">订单金额：[[${order.payMoney}]] 元</span>
+													</div>
+												</div>
+											</td>
+											<td class="action">
+												<a th:if="${order.status == '已取消'}" href="javascript:void (0)" th:onclick="deleteOrder([[${order.id}]])" class="delete"><i class="ti-trash"></i> 删除订单</a>
+												<a th:if="${order.status == '未支付'}" href="javascript:void (0)" th:onclick="cancelOrder([[${order.id}]])" class="delete"><i class="ti-face-sad"></i> 取消订单</a>
+												<a th:if="${order.status == '未支付'}" th:href="@{pay(id=${order.id})}" class="delete"><i class="ti-face-smile"></i> 去支付</a>
+												<a th:if="${order.status != '未支付'}" th:href="@{pay(id=${order.id})}" class="delete"><i class="ti-layout-cta-left"></i> 查看订单</a>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+
+								</div>
+
+								<div th:replace="common/background-bar::#footer"></div>
+								<!-- row -->
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
+
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/ion.rangeSlider.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/daterangepicker.js"></script>
+		<script src="assets/js/custom.js"></script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->
+		<script src="common/utils/reg.js"></script>
+		<script src="common/layer/layer.js"></script>
+		<script src="common/custom.js"></script>
+	</body>
+</html>

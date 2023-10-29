@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="side-bar" class="col-lg-3 col-md-4 col-sm-12">
+    <div class="property_dashboard_navbar">
+
+        <div class="dash_user_menues">
+            <ul th:if="${session.loginUser.role == '租客'}">
+                <li th:class="${currUri == 'my-profile' ? 'active' : ''}"><a href="my-profile"><i class="ti-user"></i>我的资料</a></li>
+                <li th:class="${currUri == 'my-order' ? 'active' : ''}"><a href="my-order"><i class="ti-bookmark"></i>我的订单</a></li>
+                <li th:class="${currUri == 'my-back' ? 'active' : ''}"><a href="my-back"><i class="ti-layers"></i>反馈信息</a></li>
+                <li th:class="${currUri == 'my-favor' ? 'active' : ''}"><a href="my-favor"><i class="ti-gift"></i>我的收藏</a></li>
+                <li th:class="${currUri == 'change-password' ? 'active' : ''}"><a href="change-password"><i class="ti-unlock"></i>修改密码</a></li>
+                <li><a href="logout"><i class="ti-power-off"></i>退出登录</a></li>
+            </ul>
+            <ul th:if="${session.loginUser.role == '房东'}">
+                <li th:class="${currUri == 'my-profile' ? 'active' : ''}"><a href="my-profile"><i class="ti-user"></i>我的资料</a></li>
+                <li th:class="${currUri == 'my-order' ? 'active' : ''}"><a href="orders"><i class="ti-bookmark"></i>订单管理</a></li>
+                <li th:class="${currUri == 'my-back' ? 'active' : ''}"><a href="backs"><i class="ti-layers"></i>反馈信息</a></li>
+                <li th:class="${currUri == 'my-favor' ? 'active' : ''}"><a href="my-favor"><i class="ti-gift"></i>我的收藏</a></li>
+                <li th:class="${currUri == 'new-room' ? 'active' : ''}"><a href="new-room"><i class="ti-gift"></i>发布房源</a></li>
+                <li th:class="${currUri == 'my-rooms' ? 'active' : ''}"><a href="my-rooms"><i class="ti-gift"></i>我的房源</a></li>
+                <li th:class="${currUri == 'change-password' ? 'active' : ''}"><a href="change-password"><i class="ti-unlock"></i>修改密码</a></li>
+                <li><a href="logout"><i class="ti-power-off"></i>退出登录</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div id="footer" class="row">
+    <div class="col-md-12 col-lg-12 mt-4">
+        <footer class="text-center">
+            <p class="mb-0">© 2022 Verio. 租房通 - 你的便捷租房专家</p>
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>

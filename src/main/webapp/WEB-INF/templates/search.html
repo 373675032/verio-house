@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Drizvato"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>租房通 - 你的便捷租房专家</title>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet">
+
+    <!-- Custom Color Option -->
+    <link href="assets/css/colors.css" rel="stylesheet">
+
+</head>
+
+<body class="yellow-skin">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader"></div>
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+
+
+    <!-- Start Navigation -->
+    <div th:replace="common/front-bar::#front-header"></div>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+
+    <!-- ============================ All Property ================================== -->
+    <section class="gray-simple">
+
+        <div class="container">
+
+            <div class="row">
+
+                <!-- property Sidebar -->
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="hidden-md-down">
+
+                        <div class="page-sidebar">
+
+                            <!-- Find New Property -->
+                            <div class="sidebar-widgets">
+                                <form action="search">
+
+
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                            <input name="key" id="key" th:if="${key != null}" th:value="${key}"
+                                                   type="text" class="form-control" placeholder="关键词">
+                                            <input name="key" id="key" th:if="${key == null}" type="text"
+                                                   class="form-control" placeholder="关键词">
+                                            <i class="ti-search"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                            <input name="metro" id="metro" th:if="${metro != null}" th:value="${metro}"
+                                                   type="text" class="form-control" placeholder="地铁">
+                                            <input name="metro" id="metro" th:if="${metro == null}" type="text"
+                                                   class="form-control" placeholder="地铁">
+                                            <i class="ti-location-pin"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="simple-input">
+                                            <select name="type" id="ptype" class="form-control">
+                                                <option th:if="${type != null}" th:value="${type}"
+                                                        th:text="${type}"></option>
+                                                <option value="">&nbsp;</option>
+                                                <option value="公寓">公寓</option>
+                                                <option value="住宅">住宅</option>
+                                                <option value="酒店">酒店</option>
+                                                <option value="名宿">名宿</option>
+                                                <option value="个人">个人</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="simple-input">
+                                            <select name="rentType" id="type" class="form-control">
+                                                <option th:if="${rentType != null}" th:value="${rentType}"
+                                                        th:text="${rentType}"></option>
+                                                <option value="">&nbsp;</option>
+                                                <option value="整租">整租</option>
+                                                <option value="单间">单间</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="simple-input">
+                                            <select name="bedrooms" id="bedrooms" class="form-control">
+                                                <option th:if="${bedroomCount != null}" th:value="${bedroomCount}"
+                                                        th:text="${bedroomCount}"></option>
+                                                <option value="">&nbsp;</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="simple-input">
+                                            <select name="order" id="order" class="form-control">
+                                                <option th:if="${order != null}" th:value="${order}"
+                                                        th:text="${order}"></option>
+                                                <option value="最新发布">最新发布</option>
+                                                <option value="价格升序">价格升序</option>
+                                                <option value="价格降序">价格降序</option>
+                                                <option value="浏览多">浏览多</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                            <h6>价格区间</h6>
+                                            <div class="rg-slider">
+                                                <input id="monthPrice" type="text" class="js-range-slider"
+                                                       name="monthPriceRange"/>
+                                            </div>
+                                            <input style="display: none" id="priceRange" type="text" th:value="${monthPriceRange}">
+                                        </div>
+                                    </div>
+
+                                    <div class="ameneties-features">
+                                        <button type="submit" class="btn btn-theme full-width bg-2">查找</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Sidebar End -->
+
+                </div>
+
+                <div class="col-lg-8 col-md-12 col-sm-12">
+
+
+                    <div class="row">
+
+                        <div th:each="room: ${rooms}" class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="single_property_style property_style_2 modern">
+
+                                <div class="listing_thumb_wrapper">
+                                    <div class="property_gallery_slide-thumb">
+                                        <a th:href="@{room(id=${room.id})}"><img th:src="${room.img}"
+																 class="img-fluid mx-auto" alt=""></a>
+                                    </div>
+                                    <div class="uilist_view_thumb">
+                                        <a th:href="@{room(id=${room.id})}" class="uilist-btn text-warning" data-toggle="tooltip"
+                                           th:data-original-title="${room.lookCount + '次浏览'}"><i class="ti-eye"></i></a>
+                                        <a th:if="${session.loginUser != null and room.favorId == null}" th:onclick="like([[${room.id}]], [[${session.loginUser.id}]])" class="uilist-btn text-danger" data-toggle="tooltip"
+                                           data-original-title="收藏"><i class="ti-heart"></i></a>
+										<a th:if="${session.loginUser != null and room.favorId != null}" th:onclick="unLike([[${room.favorId}]])" class="uilist-btn text-danger" data-toggle="tooltip"
+										   data-original-title="取消收藏"><i class="ti-heart-broken"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="property_caption_wrappers pb-0">
+                                    <div class="property_short_detail">
+                                        <div class="pr_type_status">
+                                            <h4 class="pr-property_title mb-1"><a th:href="@{room(id=${room.id})}"
+                                                                                  th:text="${room.title}"></a></h4>
+                                            <div class="listing-location-name" th:text="${room.subTitle}"></div>
+                                            <div style="margin-top: 5px" class="listing-location-name"
+                                                 th:text="${room.detail.address}"></div>
+                                            <div style="margin-top: 5px" class="listing-location-name"
+                                                 th:text="${room.detail.rentType}"></div>
+                                            <div style="margin-top: 20px" class="listing-location-name"
+                                                 th:text="${'发布于' + #dates.format(room.updateTime,'yyyy-MM-dd HH:mm:ss')}"></div>
+                                        </div>
+                                        <div class="property-real-price"><a href="room.html"
+                                                                            class="cl-blue">
+                                            [[${room.monthPrice}]]元 <span class="price_status">/ 月</span></a></div>
+                                    </div>
+                                </div>
+
+                                <div class="modern_property_footer">
+                                    <div class="property-lists flex-1">
+                                        <ul>
+                                            <li><span class="flatcons"><img src="assets/img/bed.svg" alt=""></span>卧室：[[${room.detail.bedroomCount}]]
+                                            </li>
+                                            <li><span class="flatcons"><img src="assets/img/bath.svg" alt=""></span>卫生间：[[${room.detail.restroomCount}]]
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_types bg-success color--white" th:text="${room.detail.status}"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!-- ============================ All Property ================================== -->
+
+    <!-- ============================ Footer Start ================================== -->
+    <div th:replace="common/front-bar::#footer"></div>
+    <div th:replace="common/front-bar::#login"></div>
+    <div th:replace="common/front-bar::#signup"></div>
+    <!-- ============================ Footer End ================================== -->
+
+    <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/daterangepicker.js"></script>
+<script src="assets/js/custom.js"></script>
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+<script src="common/utils/reg.js"></script>
+<script src="common/layer/layer.js"></script>
+<script src="common/custom.js"></script>
+<script>
+    window.onload = function () {
+        priceRange = $('#priceRange').val();
+        if (priceRange != null) {
+			let a = priceRange.split(';');
+			var slider = $(".js-range-slider").data("ionRangeSlider");
+			slider.update({
+				from: a[0],
+				to: a[1]
+			});
+			slider.reset();
+		}
+    }
+</script>
+</body>
+</html>
